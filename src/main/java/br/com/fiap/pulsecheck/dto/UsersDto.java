@@ -3,8 +3,6 @@ package br.com.fiap.pulsecheck.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public class UsersDto {
@@ -13,8 +11,5 @@ public class UsersDto {
     private String name;
     private String email;
     private String role;
-    private String password_hash;
-    private Date created_at;
-    private Boolean active;
-
+    private String password;
 }
