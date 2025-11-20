@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="br.com.fiap.pulsecheck.mapper.SuggestionMapper">
+
+    <resultMap id="SuggestionResult" type="br.com.fiap.pulsecheck.model.Suggestion">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="mood_target" column="mood_target"/>
+    </resultMap>
+
+    <select id="getSuggestionForUser" parameterType="java.lang.Integer" resultMap="SuggestionResult">
+        select id, title, description, mood_target
+        FROM suggestions
+        WHERE mood_target in (SELECT CEIL(AVG(mood)) AS avg_mood_last_7_days
+                              FROM checkins
+                              WHERE user_id = #{id}
+                                AND created_at >= NOW() - INTERVAL 7 DAY);
+    </select>
+
+</mapper>

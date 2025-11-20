@@ -14,8 +14,17 @@ public class Users {
     private String name;
     private String email;
     private String role;
-    private String password_hash;
+    private String password;
     private Date created_at;
     private Boolean active;
 
+    public Users() {
+    }
+
+    public Users(int id, int department_id, String name, String role) {
+        this.id = id;
+        this.department_id = department_id;
+        this.name = name;
+        this.role = role;
+    }
 }

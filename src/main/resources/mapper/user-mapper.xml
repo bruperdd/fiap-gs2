@@ -20,12 +20,39 @@
         )
         VALUES (
                    #{email},
-                   #{password_hash},
+                   #{password},
                    #{name},
                    #{department_id},
                    #{role},
                    #{active}
                )
     </insert>
+
+    <select id="findAll" resultType="br.com.fiap.pulsecheck.model.Users">
+        SELECT id, department_id, email, name, role, password_hash, created_at, active
+        FROM users
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="findById" parameterType="java.lang.Integer" resultType="br.com.fiap.pulsecheck.model.Users">
+        SELECT id, department_id, email, name, role, password_hash, created_at, active
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="br.com.fiap.pulsecheck.model.Users">
+        UPDATE users
+        SET name = #{name},
+            email = #{email},
+            role = #{role},
+            department_id = #{department_id}
+        WHERE id = #{id}
+    </update>
+
+    <update id="deactivateUser" parameterType="java.lang.Integer">
+        UPDATE users
+        SET active = false
+        WHERE id = #{id}
+    </update>
 
 </mapper>

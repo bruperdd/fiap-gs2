@@ -32,16 +32,17 @@ public class AuthServiceImpl implements AuthService {
 
     public JwtDto login(AuthDto dto) {
         Users user = authDao.findByEmail(dto.getEmail());
+
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
-        boolean matches = passwordEncoder.matches(dto.getPassword(), user.getPassword_hash());
+        boolean matches = passwordEncoder.matches(dto.getPassword(), user.getPassword());
         if (!matches) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
-        String token = jwtService.generateToken(user.getEmail());
+        String token = jwtService.generateToken(user);
         return new JwtDto(token, "Bearer", expiresInMillis);
     }
 }
