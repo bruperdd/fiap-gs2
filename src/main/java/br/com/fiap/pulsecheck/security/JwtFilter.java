@@ -1,5 +1,6 @@
 package br.com.fiap.pulsecheck.security;
 
+import br.com.fiap.pulsecheck.model.Users;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        if (path.equals("/auth/login") || path.equals("/users/create") || path.equals("/checkins/me") || path.equals("/checkins/create")) {
+        if (path.equals("/auth/login") || path.equals("/users/register")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -47,11 +48,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String email = jwtService.extractEmail(token);
+        Users user = jwtService.extractUser(token);
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
-                        email,
+                        user,
                         null,
                         Collections.emptyList() // sem roles
                 );
