@@ -5,16 +5,27 @@
 
 <mapper namespace="br.com.fiap.pulsecheck.mapper.CheckinMapper">
 
-    <resultMap id="UsersResult" type="br.com.fiap.pulsecheck.dto.CheckinDto">
-        <id property="user_id" column="user_id"/>
+    <resultMap id="CheckinResult" type="br.com.fiap.pulsecheck.model.Checkin">
+        <id property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
         <result property="mood" column="mood"/>
         <result property="note" column="note"/>
+        <result property="date" column="created_at"/>
     </resultMap>
 
-    <select id="getCheckinByUserId" parameterType="java.lang.Integer" resultMap="UsersResult">
-        SELECT user_id, mood, note
+    <insert id="createCheckIn"
+            parameterType="br.com.fiap.pulsecheck.model.Checkin"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO checkins (user_id, mood, note, created_at)
+        VALUES (#{user_id}, #{mood}, #{note}, #{date})
+    </insert>
+
+    <select id="findByUserId" parameterType="int" resultMap="CheckinResult">
+        SELECT id, user_id, mood, note, created_at
         FROM checkins
-        WHERE user_id = #{id}
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
     </select>
 
 </mapper>

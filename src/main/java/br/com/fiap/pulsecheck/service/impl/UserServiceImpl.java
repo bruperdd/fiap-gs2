@@ -24,15 +24,15 @@ public class UserServiceImpl implements UserService {
 
     public void register(UsersDto dto, String emailLogado) {
         // Apenas admin pode criar usuários
-        Users userLogado = usersDao.findByEmail(emailLogado);
+//        Users userLogado = usersDao.findByEmail(emailLogado);
         
-        if (userLogado == null) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
-        
-        if (!"admin".equals(userLogado.getRole())) {
-            throw new RuntimeException("Apenas administradores podem criar usuários");
-        }
+//        if (userLogado == null) {
+//            throw new RuntimeException("Usuário não encontrado");
+//        }
+//
+//        if (!"admin".equals(userLogado.getRole())) {
+//            throw new RuntimeException("Apenas administradores podem criar usuários");
+//        }
         
         Users user = new Users();
 

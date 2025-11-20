@@ -2,7 +2,9 @@ package br.com.fiap.pulsecheck.dao;
 
 import br.com.fiap.pulsecheck.model.Checkin;
 
-public interface CheckinDao {
+import java.util.List;
 
-    Checkin getCheckinByUserId(int id);
+public interface CheckinDao {
+    void createCheckIn(Checkin checkin);
+    List<Checkin> findByUserId(int userId);
 }

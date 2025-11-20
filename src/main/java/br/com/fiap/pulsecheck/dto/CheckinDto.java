@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class CheckinDto {
 
-    private int user_id;
     private int mood;
     private String note;
 
