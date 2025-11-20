@@ -5,6 +5,8 @@ import br.com.fiap.pulsecheck.model.Suggestion;
 import br.com.fiap.pulsecheck.service.SuggestionService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SuggestionServiceImpl implements SuggestionService {
 
@@ -14,7 +16,7 @@ public class SuggestionServiceImpl implements SuggestionService {
         this.suggestionDao = suggestionDao;
     }
 
-    public Suggestion getSuggestionById(int id){
-        return suggestionDao.getSuggestionById(id);
+    public List<Suggestion> getSuggestionForUser(int id){
+        return suggestionDao.getSuggestionForUser(id);
     }
 }

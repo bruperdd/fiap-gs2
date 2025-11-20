@@ -13,6 +13,11 @@
         <result property="date" column="created_at"/>
     </resultMap>
 
+    <resultMap id="CheckinResultDto" type="br.com.fiap.pulsecheck.dto.CheckinStatsDto">
+        <result property="averageMood" column="mood"/>
+        <result property="totalCheckins" column="totalCheckins"/>
+    </resultMap>
+
     <insert id="createCheckIn"
             parameterType="br.com.fiap.pulsecheck.model.Checkin"
             useGeneratedKeys="true"
@@ -21,11 +26,27 @@
         VALUES (#{user_id}, #{mood}, #{note}, #{date})
     </insert>
 
-    <select id="findByUserId" parameterType="int" resultMap="CheckinResult">
+    <select id="listMyCheckins" parameterType="java.lang.Integer" resultMap="CheckinResultDto">
         SELECT id, user_id, mood, note, created_at
         FROM checkins
-        WHERE user_id = #{userId}
+        WHERE user_id = #{id}
         ORDER BY created_at DESC
+    </select>
+
+    <select id="getCheckinStatus" parameterType="java.lang.Integer" resultMap="CheckinResultDto">
+        SELECT
+            AVG(mood) AS mood,
+            COUNT(*) AS totalCheckins
+        FROM checkins
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="getLast7Days" parameterType="java.lang.Integer" resultType="br.com.fiap.pulsecheck.dto.CheckinSupportDto">
+        SELECT created_at as date,
+               mood as averageMood
+        FROM checkins
+        WHERE user_id = #{id}
+          AND created_at >= NOW() - INTERVAL 7 DAY ORDER BY created_at DESC;
     </select>
 
 </mapper>

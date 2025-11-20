@@ -18,4 +18,8 @@ public class DepartmentsDaoImpl implements DepartmentsDao {
     public List<Department> list() {
         return departmentMapper.list();
     }
+
+    public Department listDepartmentsId(int id) {
+        return departmentMapper.listDepartmentsId(id);
+    }
 }

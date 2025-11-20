@@ -34,16 +34,10 @@
         ORDER BY created_at DESC
     </select>
 
-    <select id="findById" parameterType="int" resultType="br.com.fiap.pulsecheck.model.Users">
+    <select id="findById" parameterType="java.lang.Integer" resultType="br.com.fiap.pulsecheck.model.Users">
         SELECT id, department_id, email, name, role, password_hash, created_at, active
         FROM users
         WHERE id = #{id}
-    </select>
-
-    <select id="findByEmail" parameterType="string" resultType="br.com.fiap.pulsecheck.model.Users">
-        SELECT id, department_id, email, name, role, password_hash, created_at, active
-        FROM users
-        WHERE email = #{email}
     </select>
 
     <update id="updateUser" parameterType="br.com.fiap.pulsecheck.model.Users">
@@ -55,15 +49,9 @@
         WHERE id = #{id}
     </update>
 
-    <update id="deactivateUser" parameterType="int">
+    <update id="deactivateUser" parameterType="java.lang.Integer">
         UPDATE users
         SET active = false
-        WHERE id = #{id}
-    </update>
-
-    <update id="activateUser" parameterType="int">
-        UPDATE users
-        SET active = true
         WHERE id = #{id}
     </update>
 

@@ -10,10 +10,15 @@
         <result property="name" column="name"/>
     </resultMap>
 
+    <select id="listDepartmentsId"
+            parameterType="java.lang.Integer"
+            resultMap="DepartmentsResult">
+        SELECT id, name FROM departments WHERE id = #{id}
+    </select>
+
     <select id="list"
             resultMap="DepartmentsResult">
-
-        SELECT id, name FROM departments;
+        SELECT id, name FROM departments
     </select>
 
 </mapper>

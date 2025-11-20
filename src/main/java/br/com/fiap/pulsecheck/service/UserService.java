@@ -7,15 +7,13 @@ import java.util.List;
 
 public interface UserService {
 
-    void register(UsersDto dto, String emailLogado);
+    void register(UsersDto dto);
     
-    List<Users> listAllUsers(String emailLogado);
+    List<Users> listAllUsers();
     
-    Users getUserById(int id, String emailLogado);
+    Users getUserById(int id);
     
-    void updateUser(int id, UsersDto dto, String emailLogado);
+    void updateUser(int id, UsersDto dto);
     
-    void deactivateUser(int id, String emailLogado);
-    
-    void activateUser(int id, String emailLogado);
+    void deactivateUser(int id);
 }

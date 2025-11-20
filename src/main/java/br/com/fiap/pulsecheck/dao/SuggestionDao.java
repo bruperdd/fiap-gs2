@@ -2,7 +2,9 @@ package br.com.fiap.pulsecheck.dao;
 
 import br.com.fiap.pulsecheck.model.Suggestion;
 
+import java.util.List;
+
 public interface SuggestionDao {
 
-    Suggestion getSuggestionById(int id);
+    List<Suggestion> getSuggestionForUser(int id);
 }

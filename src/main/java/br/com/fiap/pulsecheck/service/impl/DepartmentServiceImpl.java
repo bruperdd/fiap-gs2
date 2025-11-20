@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
+
     private final DepartmentsDao departmentsDao;
 
     public DepartmentServiceImpl(DepartmentsDao departmentsDao) {
@@ -17,5 +18,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     public List<Department> list() {
         return departmentsDao.list();
+    }
+
+    public Department listDepartmentsId(int id) {
+        return departmentsDao.listDepartmentsId(id);
     }
 }

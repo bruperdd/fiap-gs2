@@ -14,11 +14,8 @@ public interface UserMapper {
     
     Users findById(int id);
     
-    Users findByEmail(String email);
-    
     void updateUser(Users user);
     
     void deactivateUser(int id);
     
-    void activateUser(int id);
 }

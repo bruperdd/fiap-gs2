@@ -12,10 +12,13 @@
         <result property="mood_target" column="mood_target"/>
     </resultMap>
 
-    <select id="getSuggestionById" parameterType="java.lang.Integer" resultMap="SuggestionResult">
-        SELECT id, title, description, mood_target
+    <select id="getSuggestionForUser" parameterType="java.lang.Integer" resultMap="SuggestionResult">
+        select id, title, description, mood_target
         FROM suggestions
-        WHERE mood_target = #{id}
+        WHERE mood_target in (SELECT CEIL(AVG(mood)) AS avg_mood_last_7_days
+                              FROM checkins
+                              WHERE user_id = #{id}
+                                AND created_at >= NOW() - INTERVAL 7 DAY);
     </select>
 
 </mapper>
