@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface SuggestionMapper {
 
-    List<Suggestion> getSuggestionById(@Param("id") int id);
+    List<Suggestion> getSuggestionForUser(@Param("id") int id);
 
 }

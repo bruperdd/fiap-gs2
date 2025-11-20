@@ -16,8 +16,8 @@ public class SuggestionDaoImpl implements SuggestionDao {
         this.suggestionMapper = suggestionMapper;
     }
 
-    public List<Suggestion> getSuggestionById(int id){
-        return suggestionMapper.getSuggestionById(id);
+    public List<Suggestion> getSuggestionForUser(int id){
+        return suggestionMapper.getSuggestionForUser(id);
     }
 
 }

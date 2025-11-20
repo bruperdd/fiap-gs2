@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SuggestionDao {
 
-    List<Suggestion> getSuggestionById(int id);
+    List<Suggestion> getSuggestionForUser(int id);
 }

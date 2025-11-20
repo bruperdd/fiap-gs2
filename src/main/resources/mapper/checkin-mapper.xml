@@ -5,16 +5,48 @@
 
 <mapper namespace="br.com.fiap.pulsecheck.mapper.CheckinMapper">
 
-    <resultMap id="UsersResult" type="br.com.fiap.pulsecheck.dto.CheckinDto">
-        <id property="user_id" column="user_id"/>
+    <resultMap id="CheckinResult" type="br.com.fiap.pulsecheck.model.Checkin">
+        <id property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
         <result property="mood" column="mood"/>
         <result property="note" column="note"/>
+        <result property="date" column="created_at"/>
     </resultMap>
 
-    <select id="getCheckinByUserId" parameterType="java.lang.Integer" resultMap="UsersResult">
-        SELECT user_id, mood, note
+    <resultMap id="CheckinResultDto" type="br.com.fiap.pulsecheck.dto.CheckinStatsDto">
+        <result property="averageMood" column="mood"/>
+        <result property="totalCheckins" column="totalCheckins"/>
+    </resultMap>
+
+    <insert id="createCheckIn"
+            parameterType="br.com.fiap.pulsecheck.model.Checkin"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO checkins (user_id, mood, note, created_at)
+        VALUES (#{user_id}, #{mood}, #{note}, #{date})
+    </insert>
+
+    <select id="listMyCheckins" parameterType="java.lang.Integer" resultMap="CheckinResultDto">
+        SELECT id, user_id, mood, note, created_at
         FROM checkins
         WHERE user_id = #{id}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="getCheckinStatus" parameterType="java.lang.Integer" resultMap="CheckinResultDto">
+        SELECT
+            AVG(mood) AS mood,
+            COUNT(*) AS totalCheckins
+        FROM checkins
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="getLast7Days" parameterType="java.lang.Integer" resultType="br.com.fiap.pulsecheck.dto.CheckinSupportDto">
+        SELECT created_at as date,
+               mood as averageMood
+        FROM checkins
+        WHERE user_id = #{id}
+          AND created_at >= NOW() - INTERVAL 7 DAY ORDER BY created_at DESC;
     </select>
 
 </mapper>

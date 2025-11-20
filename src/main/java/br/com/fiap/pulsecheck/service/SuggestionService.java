@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SuggestionService {
 
-    List<Suggestion> getSuggestionById(int id);
+    List<Suggestion> getSuggestionForUser(int id);
 }

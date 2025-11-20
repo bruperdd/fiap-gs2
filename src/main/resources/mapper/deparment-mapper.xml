@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="br.com.fiap.pulsecheck.mapper.DepartmentMapper">
+
+    <resultMap id="DepartmentsResult" type="br.com.fiap.pulsecheck.dto.DepartmentDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="listDepartmentsId"
+            parameterType="java.lang.Integer"
+            resultMap="DepartmentsResult">
+        SELECT id, name FROM departments WHERE id = #{id}
+    </select>
+
+    <select id="list"
+            resultMap="DepartmentsResult">
+        SELECT id, name FROM departments
+    </select>
+
+</mapper>

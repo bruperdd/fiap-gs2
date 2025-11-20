@@ -16,7 +16,7 @@ public class SuggestionServiceImpl implements SuggestionService {
         this.suggestionDao = suggestionDao;
     }
 
-    public List<Suggestion> getSuggestionById(int id){
-        return suggestionDao.getSuggestionById(id);
+    public List<Suggestion> getSuggestionForUser(int id){
+        return suggestionDao.getSuggestionForUser(id);
     }
 }
