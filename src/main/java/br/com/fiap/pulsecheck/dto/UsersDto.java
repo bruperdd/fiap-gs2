@@ -9,12 +9,12 @@ import java.util.Date;
 @Setter
 public class UsersDto {
 
+    private int id;
     private int department_id;
     private String name;
     private String email;
     private String role;
     private String password_hash;
     private Date created_at;
-    private Boolean active;
 
 }
