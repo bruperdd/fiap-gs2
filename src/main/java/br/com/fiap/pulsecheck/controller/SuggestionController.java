@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/suggestions")
 @Slf4j
@@ -19,9 +21,9 @@ public class SuggestionController {
     }
 
     @GetMapping()
-    public ResponseEntity<Suggestion> register(@Validated @RequestParam int id) {
+    public ResponseEntity<List<Suggestion>> register(@Validated @RequestParam int id) {
         log.info("Getting suggestions for mood id: {}", id);
-        Suggestion suggestion = suggestionService.getSuggestionById(id);
+        List<Suggestion> suggestion = suggestionService.getSuggestionById(id);
         return ResponseEntity.ok(suggestion);
     }
 

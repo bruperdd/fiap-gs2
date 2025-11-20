@@ -2,7 +2,9 @@ package br.com.fiap.pulsecheck.service;
 
 import br.com.fiap.pulsecheck.model.Suggestion;
 
+import java.util.List;
+
 public interface SuggestionService {
 
-    Suggestion getSuggestionById(int id);
+    List<Suggestion> getSuggestionById(int id);
 }
