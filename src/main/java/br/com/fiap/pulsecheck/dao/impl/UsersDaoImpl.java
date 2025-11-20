@@ -31,11 +31,6 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public Users findByEmail(String email) {
-        return userMapper.findByEmail(email);
-    }
-
-    @Override
     public void updateUser(Users user) {
         userMapper.updateUser(user);
     }
@@ -43,11 +38,6 @@ public class UsersDaoImpl implements UsersDao {
     @Override
     public void deactivateUser(int id) {
         userMapper.deactivateUser(id);
-    }
-
-    @Override
-    public void activateUser(int id) {
-        userMapper.activateUser(id);
     }
 
 }
