@@ -11,7 +11,7 @@ public interface CheckinDao {
 
     void createCheckIn(Checkin checkin);
 
-    List<Checkin> listMyCheckins(int userId);
+    List<CheckinDto> listMyCheckins(int userId);
 
     CheckinStatsDto getCheckinStatus(int userId);
 

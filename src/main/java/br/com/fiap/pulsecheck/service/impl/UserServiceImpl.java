@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
         user.setCreated_at(new Date());
         user.setActive(Boolean.TRUE);
 
-        String hash = passwordEncoder.encode(dto.getPassword_hash());
-        user.setPassword_hash(hash);
+        String hash = passwordEncoder.encode(dto.getPassword());
+        user.setPassword(hash);
 
         usersDao.createUser(user);
     }

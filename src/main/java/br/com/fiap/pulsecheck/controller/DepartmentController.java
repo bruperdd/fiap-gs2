@@ -23,13 +23,6 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/listDepartmentsId")
-    public ResponseEntity<Department> listDepartmentsId(@Validated @RequestParam int id) {
-        log.info("Listing department with id: {}", id);
-        Department departments = departmentService.listDepartmentsId(id);
-        return ResponseEntity.ok(departments);
-    }
-
     @GetMapping("/list")
     public ResponseEntity<List<Department>> list() {
         log.info("List departments: ");

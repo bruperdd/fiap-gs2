@@ -19,8 +19,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> list() {
         return departmentsDao.list();
     }
-
-    public Department listDepartmentsId(int id) {
-        return departmentsDao.listDepartmentsId(id);
-    }
 }

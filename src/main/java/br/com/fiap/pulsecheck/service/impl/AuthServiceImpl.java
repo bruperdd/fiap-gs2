@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
-        boolean matches = passwordEncoder.matches(dto.getPassword(), user.getPassword_hash());
+        boolean matches = passwordEncoder.matches(dto.getPassword(), user.getPassword());
         if (!matches) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }

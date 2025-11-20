@@ -7,7 +7,7 @@ API REST em Spring Boot para gerenciar usuários e registrar check-ins de bem-es
 ## 🚀 Instalação e Execução
 
 ### Pré-requisitos
-- Java 21+
+- Java 21
 - Maven 3.6+
 - MySQL 8.0+
 - (Windows) WSL2 recomendado
@@ -149,7 +149,7 @@ src/
 ---
 
 ## 🛠️ Tecnologias
-- Java 21 • Spring Boot 3 • Spring Security
+- Java 21 • Spring Boot 3.5.7 • Spring Security
 - MyBatis 3 • MySQL 8 • JWT (Auth0)
 - Maven • Lombok
 

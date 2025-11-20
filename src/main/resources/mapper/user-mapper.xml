@@ -20,7 +20,7 @@
         )
         VALUES (
                    #{email},
-                   #{password_hash},
+                   #{password},
                    #{name},
                    #{department_id},
                    #{role},

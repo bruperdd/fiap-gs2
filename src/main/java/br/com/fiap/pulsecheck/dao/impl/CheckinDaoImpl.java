@@ -23,7 +23,7 @@ public class CheckinDaoImpl implements CheckinDao {
         checkinMapper.createCheckIn(checkin);
     }
 
-    public List<Checkin> listMyCheckins(int userId) {
+    public List<CheckinDto> listMyCheckins(int userId) {
         return checkinMapper.listMyCheckins(userId);
     }
 

@@ -14,7 +14,7 @@ public class Users {
     private String name;
     private String email;
     private String role;
-    private String password_hash;
+    private String password;
     private Date created_at;
     private Boolean active;
 

@@ -6,7 +6,5 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    Department listDepartmentsId(int id);
-
     List<Department> list();
 }

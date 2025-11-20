@@ -14,7 +14,7 @@ public interface CheckinMapper {
 
     void createCheckIn(Checkin checkin);
 
-    List<Checkin> listMyCheckins(@Param("id") int id);
+    List<CheckinDto> listMyCheckins(@Param("id") int id);
 
     CheckinStatsDto getCheckinStatus(@Param("id") int id);
 

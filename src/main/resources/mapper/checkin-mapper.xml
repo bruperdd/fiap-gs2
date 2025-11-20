@@ -5,9 +5,8 @@
 
 <mapper namespace="br.com.fiap.pulsecheck.mapper.CheckinMapper">
 
-    <resultMap id="CheckinResult" type="br.com.fiap.pulsecheck.model.Checkin">
+    <resultMap id="CheckinResult" type="br.com.fiap.pulsecheck.dto.CheckinDto">
         <id property="id" column="id"/>
-        <result property="user_id" column="user_id"/>
         <result property="mood" column="mood"/>
         <result property="note" column="note"/>
         <result property="date" column="created_at"/>
@@ -26,11 +25,11 @@
         VALUES (#{user_id}, #{mood}, #{note}, #{date})
     </insert>
 
-    <select id="listMyCheckins" parameterType="java.lang.Integer" resultMap="CheckinResultDto">
-        SELECT id, user_id, mood, note, created_at
+    <select id="listMyCheckins" parameterType="java.lang.Integer" resultMap="CheckinResult">
+        SELECT id, mood, note, created_at
         FROM checkins
         WHERE user_id = #{id}
-        ORDER BY created_at DESC
+        AND created_at >= NOW() - INTERVAL 7 DAY ORDER BY created_at DESC;
     </select>
 
     <select id="getCheckinStatus" parameterType="java.lang.Integer" resultMap="CheckinResultDto">

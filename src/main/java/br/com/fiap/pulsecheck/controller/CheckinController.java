@@ -37,9 +37,9 @@ public class CheckinController {
     }
 
     @GetMapping("/listMyCheckins")
-    public ResponseEntity<List<Checkin>> listMyCheckins(@RequestHeader("Authorization") String header) {
+    public ResponseEntity<List<CheckinDto>> listMyCheckins(@RequestHeader("Authorization") String header) {
         Users users = retrieveUserData(header);
-        List<Checkin> checkins = checkinService.listMyCheckins(users.getId());
+        List<CheckinDto> checkins = checkinService.listMyCheckins(users.getId());
         return ResponseEntity.ok(checkins);
     }
 

@@ -11,7 +11,7 @@
         <result property="email" column="email"/>
         <result property="name" column="name"/>
         <result property="role" column="role"/>
-        <result property="password_hash" column="password_hash"/>
+        <result property="password" column="password_hash"/>
     </resultMap>
 
     <select id="findByEmail" parameterType="java.lang.String" resultMap="UsersResult">

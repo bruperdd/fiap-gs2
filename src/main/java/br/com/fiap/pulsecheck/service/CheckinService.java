@@ -10,7 +10,7 @@ public interface CheckinService {
 
     void create(CheckinDto dto, int user_id);
 
-    List<Checkin> listMyCheckins(int userId);
+    List<CheckinDto> listMyCheckins(int userId);
 
     CheckinStatsDto getCheckinStatus(int userId);
 }

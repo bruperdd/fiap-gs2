@@ -19,7 +19,4 @@ public class DepartmentsDaoImpl implements DepartmentsDao {
         return departmentMapper.list();
     }
 
-    public Department listDepartmentsId(int id) {
-        return departmentMapper.listDepartmentsId(id);
-    }
 }

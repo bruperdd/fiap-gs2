@@ -33,7 +33,7 @@ public class CheckinServiceImpl implements CheckinService {
         checkinDao.createCheckIn(checkin);
     }
 
-    public List<Checkin> listMyCheckins(int userId) {
+    public List<CheckinDto> listMyCheckins(int userId) {
         return checkinDao.listMyCheckins(userId);
     }
 

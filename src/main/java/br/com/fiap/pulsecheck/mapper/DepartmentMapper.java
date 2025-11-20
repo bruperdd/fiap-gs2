@@ -11,5 +11,4 @@ public interface DepartmentMapper {
 
     List<Department> list();
 
-    Department listDepartmentsId(@Param("id") int id);
 }
