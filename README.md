@@ -1,6 +1,6 @@
 # PulseCheck API
 
-API REST em Spring Boot para gerenciar usuários e registrar check-ins de bem-estar. As rotas protegidas exigem um JWT válido; `/auth/login` e `/users/create` continuam públicas para facilitar a configuração inicial.
+API REST em Spring Boot para gerenciar usuários e registrar check-ins de bem-estar. As rotas protegidas exigem um JWT válido; `/auth/login` e `/users/register` continuam públicas para facilitar a configuração inicial.
 
 ---
 
@@ -25,8 +25,8 @@ sudo service mysql start
 sudo mysql
 ```
 ```sql
-CREATE DATABASE pulsecheck1;
-USE pulsecheck1;
+CREATE DATABASE pulsecheck;
+USE pulsecheck;
 
 CREATE TABLE departments(
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,12 +45,28 @@ CREATE TABLE users (
   active BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
 );
+
+CREATE TABLE checkins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  mood INT NOT NULL,
+  note TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE suggestions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  mood_target INT NOT NULL
+);
 ```
 
 ### 3. Variáveis de ambiente
 > Caso não utilize o `application.properties` padrão, exporte as variáveis abaixo antes de subir a API.
 ```bash
-export SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/pulsecheck1
+export SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/pulsecheck
 export SPRING_DATASOURCE_USERNAME=root
 export SPRING_DATASOURCE_PASSWORD=
 export JWT_SECRET=FIAP12345#
@@ -68,15 +84,15 @@ Quando o log mostrar `Tomcat started on port 8080`, a API estará pronta em `htt
 
 ## 🧪 Testes via cURL
 
-> Gere pelo menos um usuário usando `/users/create`, depois faça login para obter o token. Todos os endpoints abaixo, exceto criação e login, exigem `Authorization: Bearer <TOKEN>`.
+> Gere pelo menos um usuário usando `/users/register`, depois faça login para obter o token. Todos os endpoints abaixo, exceto registro e login, exigem `Authorization: Bearer <TOKEN>`.
 
 ### Criar usuários (rota pública)
 ```bash
-curl -X POST http://localhost:8080/users/create \
+curl -X POST http://localhost:8080/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "admin@test.com",
-    "password_hash": "admin123",
+    "password": "admin123",
     "name": "Admin User",
     "role": "admin",
     "department_id": 1
@@ -93,21 +109,21 @@ curl -X POST http://localhost:8080/auth/login \
   }'
 ```
 
-### GET /users – listar tudo
+### GET /users/listAllUsers – listar todos os usuários
 ```bash
-curl -X GET http://localhost:8080/users \
+curl -X GET http://localhost:8080/users/listAllUsers \
   -H "Authorization: Bearer SEU_TOKEN"
 ```
 
-### GET /users/{id} – buscar por ID
+### GET /users/getUserById – buscar usuário autenticado
 ```bash
-curl -X GET http://localhost:8080/users/1 \
+curl -X GET http://localhost:8080/users/getUserById \
   -H "Authorization: Bearer SEU_TOKEN"
 ```
 
-### PUT /users/{id} – atualizar dados
+### PUT /users/updateUser – atualizar dados do usuário autenticado
 ```bash
-curl -X PUT http://localhost:8080/users/1 \
+curl -X PUT http://localhost:8080/users/updateUser \
   -H "Authorization: Bearer SEU_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -118,9 +134,44 @@ curl -X PUT http://localhost:8080/users/1 \
   }'
 ```
 
-### DELETE /users/{id} – desativar usuário
+### DELETE /users/deactivateUser – desativar usuário autenticado
 ```bash
-curl -X DELETE http://localhost:8080/users/1 \
+curl -X DELETE http://localhost:8080/users/deactivateUser \
+  -H "Authorization: Bearer SEU_TOKEN"
+```
+
+### POST /checkins/create – criar check-in
+```bash
+curl -X POST http://localhost:8080/checkins/create \
+  -H "Authorization: Bearer SEU_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "mood": 5,
+    "note": "Me sinto bem hoje!"
+  }'
+```
+
+### GET /checkins/listMyCheckins – listar meus check-ins (últimos 7 dias)
+```bash
+curl -X GET http://localhost:8080/checkins/listMyCheckins \
+  -H "Authorization: Bearer SEU_TOKEN"
+```
+
+### GET /checkins/getCheckinStatus – obter estatísticas de check-ins
+```bash
+curl -X GET http://localhost:8080/checkins/getCheckinStatus \
+  -H "Authorization: Bearer SEU_TOKEN"
+```
+
+### GET /departments/list – listar departamentos
+```bash
+curl -X GET http://localhost:8080/departments/list \
+  -H "Authorization: Bearer SEU_TOKEN"
+```
+
+### GET /suggestions/getSuggestionForUser – obter sugestões baseadas no humor médio
+```bash
+curl -X GET http://localhost:8080/suggestions/getSuggestionForUser \
   -H "Authorization: Bearer SEU_TOKEN"
 ```
 
