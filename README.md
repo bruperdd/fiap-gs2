@@ -205,3 +205,55 @@ src/
 - Maven • Lombok
 
 ---
+
+## 🧪 Testes Unitários
+
+A aplicação possui testes unitários implementados usando JUnit 5 e Mockito.
+
+### Executar Testes
+
+```bash
+# Executar todos os testes
+mvn test
+
+# Executar testes de uma classe específica
+mvn test -Dtest=UserServiceTest
+
+# Executar um teste específico
+mvn test -Dtest=UserServiceTest#testRegister_ShouldCreateUserSuccessfully
+```
+
+### Casos de Teste Implementados
+
+**Total:** 11 testes unitários (requisito mínimo: 3 testes)
+
+#### Testes de Serviço (8 testes)
+1. ✅ `UserServiceTest.testRegister_ShouldCreateUserSuccessfully` - Registro de usuário
+2. ✅ `UserServiceTest.testGetUserById_ShouldReturnUser_WhenUserExists` - Busca de usuário por ID (sucesso)
+3. ✅ `UserServiceTest.testGetUserById_ShouldThrowException_WhenUserNotFound` - Busca de usuário por ID (erro)
+4. ✅ `UserServiceTest.testUpdateUser_ShouldUpdateUserSuccessfully` - Atualização de usuário
+5. ✅ `UserServiceTest.testListAllUsers_ShouldReturnListOfUsers` - Listagem de usuários
+6. ✅ `AuthServiceTest.testLogin_ShouldReturnJwtToken_WhenCredentialsAreValid` - Login com credenciais válidas
+7. ✅ `AuthServiceTest.testLogin_ShouldThrowException_WhenUserNotFound` - Login com usuário não encontrado
+8. ✅ `AuthServiceTest.testLogin_ShouldThrowException_WhenPasswordIsInvalid` - Login com senha inválida
+
+#### Testes de Controller (3 testes)
+9. ✅ `UserControllerTest.testRegister_ShouldReturnOk_WhenUserIsCreated` - Registro via controller
+10. ✅ `UserControllerTest.testListAllUsers_ShouldReturnListOfUsers` - Listagem via controller
+11. ✅ `UserControllerTest.testGetUserById_ShouldReturnUser_WhenTokenIsValid` - Busca por ID via controller
+
+### Estrutura de Testes
+
+```
+src/test/java/br/com/fiap/pulsecheck/
+├── service/
+│   ├── UserServiceTest.java      # 5 testes
+│   └── AuthServiceTest.java       # 3 testes
+├── controller/
+│   └── UserControllerTest.java   # 3 testes
+└── PulsecheckApplicationTests.java
+```
+
+**Status:** ✅ Todos os testes unitários passando (11/11)
+
+---
